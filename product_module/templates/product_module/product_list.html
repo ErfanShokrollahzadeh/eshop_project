@@ -3,11 +3,19 @@
 {% block title %} product list {% endblock %}
 
 {% block content %}
-<ul>
+  <ul>
     {% for product in products %}
-        <li>
-            <a href="{{ product.get_absolute_url }}" style="color: black; text-decoration: none">{{ product.title }} / price: {{ prduct.price }}</a>
-        </li>
+      <li>
+        <a href="{{ product.get_absolute_url }}" style="color: black; text-decoration: none">{{ product.title }} /
+          price: {{ prduct.price }}</a>
+      </li>
     {% endfor %}
-</ul>
+  </ul>
+  <hr>
+  <p>
+    number of products : {{ total_number_of_products }}
+  </p>
+  <p>
+    avarage rating of product ratings : {{ average_rating.rating__avg }}
+  </p>
 {% endblock %}
