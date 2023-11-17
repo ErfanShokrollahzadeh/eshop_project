@@ -6,9 +6,9 @@ def product_list(request):
     products = Product.objects.all()
     return render(request, 'product_module/product_list.html', {'products': products})
 
-def product_detail(request, product_id):
+def product_detail(request, slug):
     try:
-        product = Product.objects.get(id=product_id)
+        product = Product.objects.get(slug=slug)
     except:
         raise Http404()
     # product = get_object_or_404(Product, pk=product_id)==> this code working instent of try and except
