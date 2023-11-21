@@ -11,10 +11,18 @@ class ProductCategory(models.Model):
     def __str__(self):
         return f'({self.title} - {self.url_title})'
 
+class ProductInformation(models.Model):
+    color = models.CharField(max_length=300, verbose_name='Color')
+    size = models.CharField(max_length=300, verbose_name='Size')
+
+    def __str__(self):
+        return f'({self.color} - {self.size})'
+
 
 class Product(models.Model):
     title = models.CharField(max_length=300)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='products', null=True) # connect two table
+    product_information = models.OneToOneField(ProductInformation, on_delete=models.CASCADE, related_name='product_information', verbose_name='complite information', null=True, blank=True)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='products', null=True, verbose_name='product') # connect two table
     price = models.IntegerField()
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=0)
     short_description = models.CharField(max_length=360, null=True)
