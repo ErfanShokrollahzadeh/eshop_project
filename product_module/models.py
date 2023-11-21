@@ -11,6 +11,10 @@ class ProductCategory(models.Model):
     def __str__(self):
         return f'({self.title} - {self.url_title})'
 
+    class Meta:  # change name of table in admin panel from 'product categories' to 'categories
+        verbose_name = 'categorie'
+        verbose_name_plural = 'categories'
+
 class ProductInformation(models.Model):
     color = models.CharField(max_length=300, verbose_name='Color')
     size = models.CharField(max_length=300, verbose_name='Size')
