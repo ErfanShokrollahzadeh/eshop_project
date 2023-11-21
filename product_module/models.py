@@ -12,7 +12,6 @@ class ProductCategory(models.Model):
         return self.title
 
 
-
 class Product(models.Model):
     title = models.CharField(max_length=300)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='products', null=True) # connect two table
