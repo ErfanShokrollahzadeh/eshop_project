@@ -9,7 +9,7 @@ class ProductCategory(models.Model):
     url_title =  models.CharField(max_length=300, verbose_name='Category URL Title')
 
     def __str__(self):
-        return self.title
+        return f'({self.title} - {self.url_title})'
 
 
 class Product(models.Model):
