@@ -1,22 +1,11 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.utils.text import slugify
 
-
-class ProductTag(models.Model):
-    tag= models.CharField(max_length=300, verbose_name='Tag Title')
-
-    class Meta:
-        verbose_name = 'tag'
-        verbose_name_plural = 'tags'
-
-    def __str__(self):
-        return f'{self.tag}'
-
 class ProductCategory(models.Model):
-    title = models.CharField(max_length=300, verbose_name='Category Title')
+    title = models.CharField(max_length=300, db_index=True, verbose_name='Category Title')
     url_title =  models.CharField(max_length=300, verbose_name='Category URL Title')
+    is_active = models.BooleanField(default=False, verbose_name='Active / UnActive')
 
     def __str__(self):
         return f'({self.title} - {self.url_title})'
@@ -25,24 +14,15 @@ class ProductCategory(models.Model):
         verbose_name = 'categorie'
         verbose_name_plural = 'categories'
 
-class ProductInformation(models.Model):
-    color = models.CharField(max_length=300, verbose_name='Color')
-    size = models.CharField(max_length=300, verbose_name='Size')
-
-    def __str__(self):
-        return f'({self.color} - {self.size})'
-
-
 class Product(models.Model):
     title = models.CharField(max_length=300)
-    product_information = models.OneToOneField(ProductInformation, on_delete=models.CASCADE, related_name='product_information', verbose_name='complite information', null=True, blank=True)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='products', null=True, verbose_name='product') # connect two table
-    product_tag = models.ManyToManyField(ProductTag, related_name='product_tag', verbose_name='product tag', null=True, blank=True)
-    price = models.IntegerField()
-    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=0)
-    short_description = models.CharField(max_length=360, null=True)
-    is_active = models.BooleanField(default=False)
-    slug = models.SlugField(default="", null=False, db_index=True, blank=True) # samsung galaxy s20 => samsung-galaxy-s20
+    category = models.ManyToManyField(ProductCategory, related_name='product_categories', verbose_name='categories') # connect two table
+    price = models.IntegerField(verbose_name='Price')
+    short_description = models.CharField(max_length=360, db_index=True, null=True, verbose_name='Short Description')
+    description = models.TextField(verbose_name="Main Description", db_index=True)
+    is_active = models.BooleanField(default=False, verbose_name='Active / UnActive')
+    slug = models.SlugField(default="", null=False, db_index=True, blank=True, max_length=200, unique=True) # samsung galaxy s20 => samsung-galaxy-s20
+    is_delete = models.BooleanField(default=False, verbose_name='Deleted / UnDelete')
 
     def get_absolute_url(self):
         return reverse('product_detail', args=[str(self.slug)])
@@ -53,3 +33,15 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.price})"
+
+
+class ProductTag(models.Model):
+    caption= models.CharField(max_length=300, db_index=True, verbose_name='Tag Title')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_tags', verbose_name='product')
+
+    class Meta:
+        verbose_name = 'tag'
+        verbose_name_plural = 'tags'
+
+    def __str__(self):
+        return f'{self.caption}'
