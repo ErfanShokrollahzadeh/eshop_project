@@ -16,9 +16,21 @@ class ProductCategory(models.Model):
         verbose_name = 'categorie'
         verbose_name_plural = 'categories'
 
+class ProductBrand(models.Model):
+    title = models.CharField(max_length=300, db_index=True, verbose_name='Brand name')
+    is_active = models.BooleanField(default=False, verbose_name='Active / UnActive')
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:  # change name of table in admin panel from 'product brands' to 'brands
+        verbose_name = 'brand'
+        verbose_name_plural = 'brands'
+
 class Product(models.Model):
     title = models.CharField(max_length=300, verbose_name='Product Title')
     category = models.ManyToManyField(ProductCategory, related_name='product_categories', verbose_name='categories') # connect two table
+    brand = models.ForeignKey(ProductBrand, on_delete=models.CASCADE, verbose_name='brands', null=True, blank=True)
     price = models.IntegerField(verbose_name='Price')
     short_description = models.CharField(max_length=360, db_index=True, null=True, verbose_name='Short Description')
     description = models.TextField(verbose_name="Main Description", db_index=True)
