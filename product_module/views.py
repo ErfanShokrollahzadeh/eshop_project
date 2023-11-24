@@ -4,12 +4,8 @@ from django.http import Http404
 from django.db.models import Avg, Max, Min
 
 def product_list(request):
-    products = Product.objects.all()
-    number_of_products = products.count()
-    return render(request, 'product_module/product_list.html',
-                  {'products': products,
-                   'total_number_of_products': number_of_products,
-    })
+    products = Product.objects.all().order_by('-price')[:5]
+    return render(request, 'product_module/product_list.html',{'products': products,})
 
 def product_detail(request, slug):
     try:
