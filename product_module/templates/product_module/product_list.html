@@ -7,7 +7,7 @@
     {% for product in products %}
       <li>
         <a href="{{ product.get_absolute_url }}" style="color: black; text-decoration: none">{{ product.title }} /
-          price: {{ prduct.price }}</a>
+          price: {{ product.price }}</a>
       </li>
     {% endfor %}
   </ul>
