@@ -10,7 +10,6 @@ class ContactUs(models.Model):
     is_read_by_admin = models.BooleanField(default=False, verbose_name='is read by admin')
 
 
-
     class Meta:  # change name of table in admin panel from 'product brands' to 'brands
         verbose_name = 'contact us'
         verbose_name_plural = 'contact us list'
