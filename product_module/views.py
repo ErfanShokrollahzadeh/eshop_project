@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import Product, ProductCategory
+from .models import Product
 from django.http import Http404
-from django.db.models import Avg, Max, Min
+
 
 def product_list(request):
     products = Product.objects.all().order_by('-price')[:5]

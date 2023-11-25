@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home_module',
     'product_module',
-    'django_render_partial'
+    'contact_module',
+    'django_render_partial',
+
 ]
 
 MIDDLEWARE = [
