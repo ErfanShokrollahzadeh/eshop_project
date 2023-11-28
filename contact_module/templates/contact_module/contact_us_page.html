@@ -15,6 +15,15 @@
             <form id="main-contact-form" class="contact-form row" action="{% url 'contact_us_page' %}" method="post">
               {% csrf_token %}
 
+            {% comment %}{% for field in contact_form %}
+            	<div class="form-group col-md-12">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+              </div>
+            {% endfor %}
+              <hr>{% endcomment %}
+
               <div class="form-group col-md-6 {% if contact_form.fullname.errors %}text-danger{% endif %}">
                 {{ contact_form.email.label_tag }}
                 {{ contact_form.email }}
@@ -22,25 +31,25 @@
               </div>
 
               <div class="form-group col-md-6 {% if contact_form.fullname.errors %}text-danger{% endif %} ">
-                {{ contact_form.fullname.label_tag }}
-                {{ contact_form.fullname }}
-                {{ contact_form.fullname.errors }}
+                {{ contact_form.full_name.label_tag }}
+                {{ contact_form.full_name }}
+                {{ contact_form.full_name.errors }}
               </div>
 
               <div class="form-group col-md-12 {% if contact_form.fullname.errors %}text-danger{% endif %}">
-                {{ contact_form.subject.label_tag }}
-                {{ contact_form.subject }}
-                {{ contact_form.subject.errors }}
+                {{ contact_form.title.label_tag }}
+                {{ contact_form.title }}
+                {{ contact_form.title.errors }}
               </div>
 
               <div class="form-group col-md-12 {% if contact_form.fullname.errors %}text-danger{% endif %}">
-                {{ contact_form.text.label_tag }}
-                {{ contact_form.text }}
-                {{ contact_form.text.errors }}
+                {{ contact_form.message.label_tag }}
+                {{ contact_form.message }}
+                {{ contact_form.message.errors }}
               </div>
 
-              {% comment %}{{ contact_form }}{% endcomment %}
-
+             {% comment %}{{ contact_form }}{% endcomment %}
+{##}
 {#              <div class="form-group col-md-6">#}
 {#                <input type="text" name="fullname" class="form-control"#}
 {#                       placeholder="نام و نام خانوادگی">#}

@@ -1,4 +1,7 @@
 from django.contrib import admin
 from . import models
 
-admin.site.register(models.ContactUs)
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ['title','created_date']
+
+admin.site.register(models.ContactUs, ContactUsAdmin)
