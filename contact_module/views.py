@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views import View
 # from django.http import HttpResponseRedirect
 from .forms import ContactUsForm, ContactUsModelFrom
-from .models import ContactUs
+# from .models import ContactUs
 
 
 class ContactUsView(View):
