@@ -1,16 +1,53 @@
-from django.shortcuts import render
+# from django.shortcuts import render
+from django.views.generic import TemplateView
+from django.views.generic import ListView
 from .models import Product
 from django.http import Http404
 
 
-def product_list(request):
-    products = Product.objects.all().order_by('-price')[:5]
-    return render(request, 'product_module/product_list.html',{'products': products,})
 
-def product_detail(request, slug):
-    try:
-        product = Product.objects.get(slug=slug)
-    except:
-        raise Http404()
-    # product = get_object_or_404(Product, pk=product_id)==> this code working instent of try and except
-    return render(request, 'product_module/product_detail.html', {'product': product})
+class ProductListView(ListView):
+    template_name = 'product_module/product_list.html'
+    model = Product
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        base_query = super(ProductListView, self).get_queryset()
+        data = base_query.filter(is_active=True)
+        return data
+
+
+    # def get_context_data(self, **kwargs):         # this code is working instent of model = Product when we use generic list view
+    #     products = Product.objects.all().order_by('-price')[:5]
+    #     context = super().get_context_data(**kwargs)
+    #     context['products'] = products
+    #     return context
+
+
+
+# def product_list(request):
+#     products = Product.objects.all().order_by('-price')[:5]
+#     return render(request, 'product_module/product_list.html',{'products': products,})
+
+
+# def product_detail(request, slug):
+#     try:
+#         product = Product.objects.get(slug=slug)
+#     except:
+#         raise Http404()
+#     # product = get_object_or_404(Product, pk=product_id)==> this code working instent of try and except
+#     return render(request, 'product_module/product_detail.html', {'product': product})
+
+
+
+class ProductDetailView(TemplateView):
+    template_name = 'product_module/product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        try:
+            product = Product.objects.get(slug=kwargs['slug'])
+        except:
+            raise Http404()
+        context = super().get_context_data(**kwargs)
+        context['product'] = product
+        return context
