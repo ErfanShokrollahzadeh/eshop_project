@@ -16,6 +16,8 @@ class ContactUsForm(forms.Form):
     message = forms.CharField(label='متن پیام',
             widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'متن پیام', 'id':'message', 'rows':'5'}))
 
+    def save(self):
+        pass
 
 
 # the bottom class for conetc to contact us model in models.py
