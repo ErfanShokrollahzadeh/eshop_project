@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Product
 from django.http import Http404
 
@@ -11,10 +11,10 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
 
-    def get_queryset(self):
-        base_query = super(ProductListView, self).get_queryset()
-        data = base_query.filter(is_active=True)
-        return data
+    # def get_queryset(self):
+    #     base_query = super(ProductListView, self).get_queryset()
+    #     data = base_query.filter(is_active=True)
+    #     return data
 
 
     # def get_context_data(self, **kwargs):         # this code is working instent of model = Product when we use generic list view
@@ -40,14 +40,16 @@ class ProductListView(ListView):
 
 
 
-class ProductDetailView(TemplateView):
+class ProductDetailView(DetailView):
     template_name = 'product_module/product_detail.html'
+    model = Product
 
-    def get_context_data(self, **kwargs):
-        try:
-            product = Product.objects.get(slug=kwargs['slug'])
-        except:
-            raise Http404()
-        context = super().get_context_data(**kwargs)
-        context['product'] = product
-        return context
+
+    # def get_context_data(self, **kwargs):
+    #     try:
+    #         product = Product.objects.get(slug=kwargs['slug'])
+    #     except:
+    #         raise Http404()
+    #     context = super().get_context_data(**kwargs)
+    #     context['product'] = product
+    #     return context

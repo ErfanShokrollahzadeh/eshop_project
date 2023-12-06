@@ -15,55 +15,55 @@
             <form id="main-contact-form" class="contact-form row" action="{% url 'contact_us_page' %}" method="post">
               {% csrf_token %}
 
-            {% comment %}{% for field in contact_form %}
-            	<div class="form-group col-md-12">
-                {{ field.label_tag }}
-                {{ field }}
-                {{ field.errors }}
-              </div>
-            {% endfor %}
-              <hr>{% endcomment %}
+              {#              {% for field in form %}#}
+              {#                <div class="form-group col-md-12">#}
+              {#                  {{ field.label_tag }}#}
+              {#                  {{ field }}#}
+              {#                  {{ field.errors }}#}
+              {#                </div>#}
+              {#              {% endfor %}#}
+              {#              <hr>#}
 
               <div class="form-group col-md-6">
-                {{ contact_form.email.label_tag }}
-                {{ contact_form.email }}
-                {{ contact_form.email.errors }}
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}
               </div>
 
               <div class="form-group col-md-6">
-                {{ contact_form.full_name.label_tag }}
-                {{ contact_form.full_name }}
-                {{ contact_form.full_name.errors }}
+                {{ form.full_name.label_tag }}
+                {{ form.full_name }}
+                {{ form.full_name.errors }}
               </div>
 
               <div class="form-group col-md-12">
-                {{ contact_form.title.label_tag }}
-                {{ contact_form.title }}
-                {{ contact_form.title.errors }}
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {{ form.title.errors }}
               </div>
 
               <div class="form-group col-md-12">
-                {{ contact_form.message.label_tag }}
-                {{ contact_form.message }}
-                {{ contact_form.message.errors }}
+                {{ form.message.label_tag }}
+                {{ form.message }}
+                {{ form.message.errors }}
               </div>
 
-             {% comment %}{{ contact_form }}{% endcomment %}
-{##}
-{#              <div class="form-group col-md-6">#}
-{#                <input type="text" name="fullname" class="form-control"#}
-{#                       placeholder="نام و نام خانوادگی">#}
-{#              </div>#}
-{#              <div class="form-group col-md-6">#}
-{#                <input type="email" name="email" class="form-control" placeholder="ایمیـل">#}
-{#              </div>#}
-{#              <div class="form-group col-md-12">#}
-{#                <input type="text" name="subject" class="form-control" placeholder="موضـوع">#}
-{#              </div>#}
-{#              <div class="form-group col-md-12">#}
-{#                <textarea name="message" id="message" class="form-control" rows="8"#}
-{#                          placeholder="پیغـام شمـا"></textarea>#}
-{#              </div>#}
+              {% comment %}{{ form }}{% endcomment %}
+              {##}
+              {#              <div class="form-group col-md-6">#}
+              {#                <input type="text" name="fullname" class="form-control"#}
+              {#                       placeholder="نام و نام خانوادگی">#}
+              {#              </div>#}
+              {#              <div class="form-group col-md-6">#}
+              {#                <input type="email" name="email" class="form-control" placeholder="ایمیـل">#}
+              {#              </div>#}
+              {#              <div class="form-group col-md-12">#}
+              {#                <input type="text" name="subject" class="form-control" placeholder="موضـوع">#}
+              {#              </div>#}
+              {#              <div class="form-group col-md-12">#}
+              {#                <textarea name="message" id="message" class="form-control" rows="8"#}
+              {#                          placeholder="پیغـام شمـا"></textarea>#}
+              {#              </div>#}
               <div class="form-group col-md-12">
                 {#                <input type="submit" name="submit" class="btn btn-primary pull-right" value="ارسـال">#}
                 <button type="submit" class="btn btn-primary pull-right">ارسال</button>
