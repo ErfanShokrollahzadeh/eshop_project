@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views import View
+# from django.shortcuts import render, redirect
+# from django.urls import reverse
+# from django.views import View
 # from django.http import HttpResponseRedirect
 from .forms import ContactUsForm, ContactUsModelFrom
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 
