@@ -16,3 +16,7 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class UserProfile(models.Model):
+    image = models.FileField(upload_to='images', verbose_name='image')
