@@ -26,7 +26,3 @@ class ContactUsModelFrom(forms.ModelForm):
             },
         }
 
-
-
-class ProfileForm(forms.Form):
-    user_image = forms.FileField()

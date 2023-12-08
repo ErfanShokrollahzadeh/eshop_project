@@ -19,4 +19,4 @@ class ContactUs(models.Model):
 
 
 class UserProfile(models.Model):
-    image = models.FileField(upload_to='images', verbose_name='image')
+    image = models.ImageField(upload_to='images', verbose_name='image')

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 # from django.urls import reverse
 from django.views import View
+from django.views.generic import ListView
+
 # from django.http import HttpResponseRedirect
 # from django.views.generic import TemplateView
-from .forms import ContactUsModelFrom, ProfileForm
+from .forms import ContactUsModelFrom
 from django.views.generic.edit import FormView, CreateView
 from .models import ContactUs, UserProfile
 
@@ -21,20 +23,14 @@ def store_file(file):
 
 
 
-class CreateProfileView(View):
-    def get(self, request):
-        form = ProfileForm()
-        return render(request, 'contact_module/create-profile-page.html', {'form': form})
-
-    def post(self, request):
-        submitted_form = ProfileForm(request.POST, request.FILES)
-        if submitted_form.is_valid():
-            # store_file(request.FILES['profile'])
-            profile = UserProfile(image=request.FILES['user_image'])
-            profile.save()
-            return redirect('/contact_us/create-profile/')
-        return render(request, 'contact_module/create-profile-page.html', {'form': submitted_form})
+class CreateProfileView(CreateView):
+    template_name = 'contact_module/create-profile-page.html'
+    model = UserProfile
+    fields = '__all__'
+    success_url = '/contact-us/create-profile'
 
 
-
-
+class ProfileView(ListView):
+    template_name = 'contact_module/profiles_list_page.html'
+    model = UserProfile
+    context_object_name = 'profiles'
