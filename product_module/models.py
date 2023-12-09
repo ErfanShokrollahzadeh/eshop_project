@@ -30,6 +30,7 @@ class ProductBrand(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=300, verbose_name='Product Title')
     category = models.ManyToManyField(ProductCategory, related_name='product_categories', verbose_name='categories') # connect two table
+    image = models.ImageField(upload_to='images/products', verbose_name='Product Image', null=True, blank=True)
     brand = models.ForeignKey(ProductBrand, on_delete=models.CASCADE, verbose_name='brands', null=True, blank=True)
     price = models.IntegerField(verbose_name='Price')
     short_description = models.CharField(max_length=360, db_index=True, null=True, verbose_name='Short Description')
