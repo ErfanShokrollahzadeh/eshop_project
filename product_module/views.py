@@ -70,9 +70,3 @@ class AddProductFavorite(View):
         product = Product.objects.get(pk=product_id)
         request.session['favorite_product'] = product_id
         return redirect(product.get_absolute_url())
-
-
-
-
-
-
