@@ -1,4 +1,6 @@
 # from django.shortcuts import render
+from django.shortcuts import redirect
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView
 from .models import Product
@@ -53,3 +55,20 @@ class ProductDetailView(DetailView):
     #     context = super().get_context_data(**kwargs)
     #     context['product'] = product
     #     return context
+
+class AddProductFavorite(View):
+    def post(self, request):
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(pk=product_id)
+        request.session['favorite_product'] = product_id
+        return redirect(product.get_absolute_url())
+
+
+
+
+
+
+
+
+
+
