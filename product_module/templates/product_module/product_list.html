@@ -15,10 +15,17 @@
             {% endfor %}
             <div class="clearfix"></div>
             <ul class="pagination">
-              <li class="active"><a href="">1</a></li>
-              <li><a href="">2</a></li>
-              <li><a href="">3</a></li>
-              <li><a href="">»</a></li>
+              {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}"> قبلی </a></li>
+              {% endif %}
+              {% for pagenumber in paginator.page_range %}
+                <li class="{% if page_obj.number == pagenumber %} active {% endif %}"><a
+                    href="?page={{ pagenumber }}">{{ pagenumber }}</a></li>
+              {% endfor %}
+              {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+              {% endif %}
+
             </ul>
           </div><!--features_items-->
         </div>
