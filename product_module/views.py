@@ -7,7 +7,6 @@ from .models import Product
 # from django.http import Http404
 
 
-
 class ProductListView(ListView):
     template_name = 'product_module/product_list.html'
     model = Product
