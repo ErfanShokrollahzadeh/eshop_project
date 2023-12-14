@@ -21,6 +21,7 @@ from django.conf import settings # for media files
 
 urlpatterns = [
     path('', include('home_module.urls')),  # new
+    path('', include('account_module.urls')),  # new
     path('contact_us/', include('contact_module.urls')),  # new
     path('products/', include('product_module.urls')),  # new
     path('admin/', admin.site.urls),
