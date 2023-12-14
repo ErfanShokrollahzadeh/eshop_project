@@ -4,7 +4,6 @@ from django.views import View
 from account_module.forms import RegisterForm
 from .models import User
 from django.utils.crypto import get_random_string
-from django.core.mail import send_mail
 
 
 class RegisterView(View):
