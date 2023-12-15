@@ -5,6 +5,8 @@ from django.views import View
 from account_module.forms import RegisterForm
 from .models import User
 from django.utils.crypto import get_random_string
+from django.http import Http404
+from .forms import LoginForm
 
 
 class RegisterView(View):
@@ -12,7 +14,6 @@ class RegisterView(View):
         register_form = RegisterForm()
         context = {'register_form': register_form}
         return render(request, 'account_module/register.html', context)
-
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
@@ -36,8 +37,9 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        context = {'login_form': None}
-        return render(request, 'account_module/register.html', context)
+        login_form = LoginForm
+        context = {'login_form': login_form}
+        return render(request, 'account_module/login.html', context)
 
     def post(self, request):
         pass
@@ -56,3 +58,20 @@ class LoginView(View):
         #
         # context = {'register_form': register_form}
         # return render(request, 'account_module/register.html', context)
+
+
+class ActivateAccountView(View):
+    def get(self, request, email_active_code):
+        user: User = User.objects.filter(email_active_code__iexact=email_active_code).first()
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.email_active_code = get_random_string(length=72)
+                user.save()
+                # todo show success message
+                return redirect(reverse('login_page'))
+            else:
+                # todo show your account was activated message
+                pass
+
+        raise Http404('کاربر یافت نشد')
