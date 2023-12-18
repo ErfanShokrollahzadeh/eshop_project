@@ -46,9 +46,6 @@ class LoginView(View):
     def post(self, request: HttpRequest):
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            user_email = login_form.cleaned_data.get('email')
-            if not User.objects.filter(email__iexact=user_email).exists():
-                login_form.add_error('email', 'کاربری با این مشخصات یافت نشد')
             user_password = login_form.cleaned_data.get('password')
             user: User = User.objects.filter(email__iexact=login_form.cleaned_data.get('email')).first()
             if user is not None:
