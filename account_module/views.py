@@ -32,7 +32,7 @@ class RegisterView(View):
                 new_user.set_password(user_password)
                 new_user.save()
                 # todo : send email active code
-                send_email('فعال سازی حساب کاربری', new_user_email, {'user': new_user}, 'emails/activate_account.html')
+                send_email('فعال سازی حساب کاربری', new_user.email, {'user': new_user}, 'emails/activate_account.html')
                 return redirect(reverse('login_page'))
 
         context = {'register_form': register_form}
@@ -97,7 +97,9 @@ class ForgetPassword(View):
             user: User = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
                 # send email for reset password
-                pass
+                send_email('بازیابی کلمه عبور', user.email, {'user': user}, 'emails/forgot_password.html')
+                return redirect(reverse('home_page'))
+
             else:
                 foget_password_form.add_error('email', 'کاربری با این مشخصات یافت نشد')
 
@@ -128,3 +130,9 @@ class ResetPassword(View):
 
         context = {'reset_pass_form': reset_pass_form, 'user': user}
         return render(request, 'account_module/reset_password.html', context)
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse('login_page'))
