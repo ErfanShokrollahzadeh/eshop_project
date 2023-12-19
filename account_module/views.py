@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.http import HttpRequest
 # from django.contrib.auth import get_user_model
 from django.views import View
-from account_module.forms import RegisterForm
-from .models import User
+from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
+from account_module.models import User
 from django.utils.crypto import get_random_string
 from django.http import Http404
 from .forms import LoginForm
@@ -80,3 +80,36 @@ class ActivateAccountView(View):
                 pass
 
         raise Http404('کاربر یافت نشد')
+
+
+
+class ForgetPassword(View):
+    def get(self, request: HttpRequest):
+        foget_password_form = ForgotPasswordForm
+        context = {'foget_password_form': foget_password_form}
+        return render(request,'account_module/Forgot_password.html', context)
+
+    def post(self, request: HttpRequest):
+        foget_password_form = ForgotPasswordForm(request.POST)
+        if foget_password_form.is_valid():
+            user_email = foget_password_form.cleaned_data.get('email')
+            user: User = User.objects.filter(email__iexact=user_email).first()
+            if user is not None:
+                # send email for reset password
+                pass
+            else:
+                foget_password_form.add_error('email', 'کاربری با این مشخصات یافت نشد')
+
+
+        context = {'foget_password_form': foget_password_form}
+        return render(request, 'account_module/Forgot_password.html', context)
+
+
+class ResetPassword(View):
+    def get(self, request: HttpRequest, active_code):
+        user: User = User.objects.filter(email_active_code__iexact=active_code).first()
+        if user is None:
+            redirect(reverse('login_page'))
+        reset_pass_form = ResetPasswordForm()
+        context = {'reset_pass_form': reset_pass_form}
+        return render(request, 'account_module/reset_password.html', context)
