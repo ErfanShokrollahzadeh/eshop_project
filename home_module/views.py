@@ -3,10 +3,6 @@ from django.views import View
 from django.views.generic.base import TemplateView
 
 
-# class HomeView(View):
-#     def get(self, request):
-#         return render(request, 'home_module/index_page.html')
-
 class HomeView(TemplateView):
     template_name = 'home_module/index_page.html'
 
@@ -21,7 +17,7 @@ class HomeView(TemplateView):
 
 def site_header_component(request):
     context = {
-        'link': 'اموزش چنگو'
+
     }
     return render(request, 'shared/site_header_partial.html', context)
 
