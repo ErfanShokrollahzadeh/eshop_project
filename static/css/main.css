@@ -25,7 +25,7 @@ body {
     position: relative;
     font-weight: normal;
     direction: rtl;
-    background: #101820;
+    /* background: #101820; */
 }
 
 ul li {
