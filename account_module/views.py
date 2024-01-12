@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpRequest
 # from django.contrib.auth import get_user_model
 from django.views import View
-from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
+from account_module.forms import RegisterForm, ForgotPasswordForm, ResetPasswordForm
 from account_module.models import User
 from django.utils.crypto import get_random_string
 from django.http import Http404
